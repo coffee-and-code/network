@@ -53,14 +53,16 @@ int main(int argc, char *argv[]) {
 	
 	char buf[MAXDATASIZE];
 
-	if ((numbytes = recv(newfd, buf, MAXDATASIZE - 1, 0)) == -1) {
-		perror("recv");
-		exit(1);
+	while (1) {
+		if ((numbytes = recv(newfd, buf, MAXDATASIZE - 1, 0)) == -1) {
+			perror("recv");
+			exit(1);
+		}
+
+		buf[numbytes] = '\0';
+
+		printf("message: \"%s\"", buf);
 	}
-
-	buf[numbytes] = '\0';
-
-	printf("message: \"%s\"", buf);
 
 	close(sockfd);
 	close(newfd);

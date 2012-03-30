@@ -38,13 +38,15 @@ int main(int argc, char *argv[]) {
 
 	char *message = (char *)calloc(0, 256);
 
-	printf("message: ");
-	fgets(message, 256, stdin);
-	
-	if (send(sockfd, message, strlen(message), 0) == -1) {
-		close(sockfd);
-		perror("send");
-		exit(1);
+	while (1) {
+		printf("message: ");
+		fgets(message, 256, stdin);
+		
+		if (send(sockfd, message, strlen(message), 0) == -1) {
+			close(sockfd);
+			perror("send");
+			exit(1);
+		}
 	}
 
 	close(sockfd);
